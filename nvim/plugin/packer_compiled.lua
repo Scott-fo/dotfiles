@@ -101,6 +101,11 @@ _G.packer_plugins = {
     path = "/home/scottfo/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
     url = "https://github.com/hrsh7th/cmp-nvim-lsp"
   },
+  ["feline.nvim"] = {
+    loaded = true,
+    path = "/home/scottfo/.local/share/nvim/site/pack/packer/start/feline.nvim",
+    url = "https://github.com/feline-nvim/feline.nvim"
+  },
   ["git.nvim"] = {
     loaded = true,
     path = "/home/scottfo/.local/share/nvim/site/pack/packer/start/git.nvim",
@@ -120,11 +125,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/scottfo/.local/share/nvim/site/pack/packer/start/lspsaga.nvim",
     url = "https://github.com/glepnir/lspsaga.nvim"
-  },
-  ["lualine.nvim"] = {
-    loaded = true,
-    path = "/home/scottfo/.local/share/nvim/site/pack/packer/start/lualine.nvim",
-    url = "https://github.com/nvim-lualine/lualine.nvim"
   },
   ["mason-lspconfig.nvim"] = {
     loaded = true,
@@ -160,6 +160,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/scottfo/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
+  },
+  ["nvim-treesitter"] = {
+    loaded = true,
+    path = "/home/scottfo/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
+    url = "https://github.com/nvim-treesitter/nvim-treesitter"
   },
   ["nvim-web-devicons"] = {
     loaded = true,

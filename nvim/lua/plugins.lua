@@ -38,5 +38,9 @@ packer.startup(function(use)
     tag = "v3.*" 
   }
   use 'feline-nvim/feline.nvim'
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = ":TSUpdate",
+  }
 end)
 

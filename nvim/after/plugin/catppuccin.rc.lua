@@ -11,7 +11,7 @@ catppuccin.setup {
 		conditionals = {},
 	},
   integrations = {
-    treesitter = false,
+    treesitter = true,
     cmp = true,
     gitsigns = true,
     telescope = true,
