@@ -11,7 +11,8 @@ prettier.setup {
     'typescriptreact',
     'json',
     'scss',
-    'less'
+    'less',
+    'php'
   }
 }
 

@@ -30,3 +30,4 @@ keymap.set('n', '<C-w><up>', '<C-w>+')
 keymap.set('n', '<C-w><down>', '<C-w>-')
 
 vim.api.nvim_set_keymap('i', 'jj', '<Esc>', {noremap = true})
+vim.keymap.set('n', 'ca', '<cmd>lua vim.lsp.buf.code_action()<cr>')

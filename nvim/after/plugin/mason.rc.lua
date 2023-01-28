@@ -9,6 +9,7 @@ lspconfig.setup {
   ensure_installed = { 'tailwindcss', 'gopls', 'rust_analyzer' }
 }
 
+require'lspconfig'.intelephense.setup{}
 require'lspconfig'.pylsp.setup{}
 require'lspconfig'.pyright.setup{}
 require'lspconfig'.tsserver.setup{}

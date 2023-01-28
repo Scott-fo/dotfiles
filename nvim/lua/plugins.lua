@@ -16,6 +16,7 @@ packer.startup(function(use)
   use 'hrsh7th/nvim-cmp'
   use 'L3MON4D3/LuaSnip'
   use 'windwp/nvim-autopairs'
+  use 'windwp/nvim-ts-autotag'
   use 'nvim-telescope/telescope.nvim'
   use 'nvim-telescope/telescope-file-browser.nvim'
   use 'nvim-lua/plenary.nvim'
@@ -42,5 +43,7 @@ packer.startup(function(use)
     'nvim-treesitter/nvim-treesitter',
     run = ":TSUpdate",
   }
+  use 'tpope/vim-fugitive'
+  use 'github/copilot.vim'
 end)
 
