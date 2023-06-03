@@ -10,6 +10,7 @@ lspconfig.setup {
 }
 
 require'lspconfig'.intelephense.setup{}
+require'lspconfig'.astro.setup{}
 require'lspconfig'.pylsp.setup{}
 require'lspconfig'.pyright.setup{}
 require'lspconfig'.tsserver.setup{}
@@ -17,3 +18,8 @@ require'lspconfig'.tailwindcss.setup {}
 require'lspconfig'.rust_analyzer.setup{}
 require'lspconfig'.gopls.setup{}
 require'lspconfig'.yamlls.setup{}
+require'lspconfig'.elixirls.setup{
+  cmd = {"/home/scottfo/.elixir-ls/language_server.sh"};
+}
+require'lspconfig'.ols.setup({})
+require'lspconfig'.zls.setup{}

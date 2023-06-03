@@ -2,6 +2,8 @@ local keymap = vim.keymap
 
 -- Don't yank on x
 keymap.set('n', 'x', '"_x')
+keymap.set('n', 'd', '"_d')
+keymap.set('n', 'D', '"_D')
 
 -- Increment/Decrement numbers
 keymap.set('n', '+', '<C-a>')
