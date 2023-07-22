@@ -35,10 +35,7 @@ packer.startup(function(use)
   use 'L3MON4D3/LuaSnip'
   use 'windwp/nvim-autopairs'
   use 'windwp/nvim-ts-autotag'
-  use {
-      'nvim-telescope/telescope.nvim',
-      tag="0.1.0",
-  }
+  use 'nvim-telescope/telescope.nvim'
   use 'nvim-telescope/telescope-file-browser.nvim'
   use 'nvim-lua/plenary.nvim'
   use 'norcalli/nvim-colorizer.lua'
@@ -55,7 +52,6 @@ packer.startup(function(use)
   use { 
     after = "catppuccin",
     'akinsho/bufferline.nvim',
-    tag = "v3.*" 
   }
   use 'feline-nvim/feline.nvim'
   use {
