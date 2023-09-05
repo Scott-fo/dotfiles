@@ -126,16 +126,6 @@ _G.packer_plugins = {
     path = "/home/scottfo/.local/share/nvim/site/pack/packer/start/friendly-snippets",
     url = "https://github.com/rafamadriz/friendly-snippets"
   },
-  ["git.nvim"] = {
-    loaded = true,
-    path = "/home/scottfo/.local/share/nvim/site/pack/packer/start/git.nvim",
-    url = "https://github.com/dinhhuy258/git.nvim"
-  },
-  ["gitsigns.nvim"] = {
-    loaded = true,
-    path = "/home/scottfo/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
-    url = "https://github.com/lewis6991/gitsigns.nvim"
-  },
   ["lsp-zero.nvim"] = {
     loaded = true,
     path = "/home/scottfo/.local/share/nvim/site/pack/packer/start/lsp-zero.nvim",
@@ -145,11 +135,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/scottfo/.local/share/nvim/site/pack/packer/start/lspkind-nvim",
     url = "https://github.com/onsails/lspkind-nvim"
-  },
-  ["lspsaga.nvim"] = {
-    loaded = true,
-    path = "/home/scottfo/.local/share/nvim/site/pack/packer/start/lspsaga.nvim",
-    url = "https://github.com/glepnir/lspsaga.nvim"
   },
   ["mason-lspconfig.nvim"] = {
     loaded = true,
@@ -161,11 +146,6 @@ _G.packer_plugins = {
     path = "/home/scottfo/.local/share/nvim/site/pack/packer/start/mason.nvim",
     url = "https://github.com/williamboman/mason.nvim"
   },
-  ["null-ls.nvim"] = {
-    loaded = true,
-    path = "/home/scottfo/.local/share/nvim/site/pack/packer/start/null-ls.nvim",
-    url = "https://github.com/jose-elias-alvarez/null-ls.nvim"
-  },
   ["nvim-autopairs"] = {
     loaded = true,
     path = "/home/scottfo/.local/share/nvim/site/pack/packer/start/nvim-autopairs",
@@ -175,11 +155,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/scottfo/.local/share/nvim/site/pack/packer/start/nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
-  },
-  ["nvim-colorizer.lua"] = {
-    loaded = true,
-    path = "/home/scottfo/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua",
-    url = "https://github.com/norcalli/nvim-colorizer.lua"
   },
   ["nvim-lspconfig"] = {
     loaded = true,
@@ -210,16 +185,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/scottfo/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
-  },
-  ["prettier.nvim"] = {
-    loaded = true,
-    path = "/home/scottfo/.local/share/nvim/site/pack/packer/start/prettier.nvim",
-    url = "https://github.com/MunifTanjim/prettier.nvim"
-  },
-  ["rust-tools.nvim"] = {
-    loaded = true,
-    path = "/home/scottfo/.local/share/nvim/site/pack/packer/start/rust-tools.nvim",
-    url = "https://github.com/simrat39/rust-tools.nvim"
   },
   ["telescope-file-browser.nvim"] = {
     loaded = true,

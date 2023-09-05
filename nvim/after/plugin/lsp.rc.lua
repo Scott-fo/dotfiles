@@ -4,11 +4,8 @@ lsp.preset('recommended')
 
 lsp.ensure_installed({
     'tsserver',
-    'tailwindcss',
     'gopls',
     'rust_analyzer',
-    "intelephense",
-    "astro",
     "rust_analyzer",
 })
 
@@ -43,35 +40,31 @@ cmp.setup({
     }),
 })
 
+lsp.nvim_workspace()
+
+lsp.on_attach(function(client, bufnr)
+    local opts = { buffer = bufnr, remap = false }
+
+    lsp.buffer_autoformat()
+
+    -- Definitions
+    vim.keymap.set('n', 'gd', function() vim.lsp.buf.definition() end, opts)
+    vim.keymap.set('n', 'gr', function() vim.lsp.buf.references() end, opts)
+    vim.keymap.set('n', 'K', function() vim.lsp.buf.hover() end, opts)
+    vim.keymap.set('i', '<C-k>', function() vim.lsp.buf.signature_help() end, opts)
+    vim.keymap.set('n', 'ca', function() vim.lsp.buf.code_action() end, opts)
+
+    -- Actions
+    vim.keymap.set('n', 'gn', function() vim.lsp.buf.rename() end, opts)
+
+    -- Diagnostics
+    vim.keymap.set('n', '[d', function() vim.diagnostic.goto_next() end, opts)
+    vim.keymap.set('n', ']d', function() vim.diagnostic.goto_prev() end, opts)
+    vim.keymap.set('n', 'ge', function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end, opts)
+    vim.keymap.set('n', 'gl', function() vim.diagnostic.open_float() end, opts)
+end)
+
 vim.cmd [[
   set completeopt=menuone,noinsert,noselect
   highlight! default link CmpItemKind CmpItemMenuDefault
 ]]
-
-require("mason").setup {
-    log_level = vim.log.levels.DEBUG
-}
-
-local null_ls = require('null-ls')
-
-null_ls.setup {
-    on_attach = function(client, bufnr)
-        if client.server_capabilities.documentFormattingProvider then
-            vim.api.nvim_command [[augroup Format]]
-            vim.api.nvim_command [[autocmd! * <buffer>]]
-            vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
-            vim.api.nvim_command [[augroup END]]
-        end
-    end,
-    sources = {
-        null_ls.builtins.formatting.stylua,
-        null_ls.builtins.diagnostics.eslint_d.with({
-            diagnostics_format = '[eslint] #{m}\n#{c})'
-        }),
-        null_ls.builtins.completion.spell,
-        null_ls.builtins.formatting.rustfmt,
-        null_ls.builtins.formatting.gofmt,
-        null_ls.builtins.formatting.ocamlformat,
-        null_ls.builtins.formatting.phpcsfixer,
-    }
-}
