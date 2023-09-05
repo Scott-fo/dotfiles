@@ -10,7 +10,6 @@ lsp.ensure_installed({
     "intelephense",
     "astro",
     "rust_analyzer",
-    "eslint",
 })
 
 lsp.setup()
@@ -66,12 +65,10 @@ null_ls.setup {
     end,
     sources = {
         null_ls.builtins.formatting.stylua,
-        null_ls.builtins.diagnostics.psalm,
         null_ls.builtins.diagnostics.eslint_d.with({
             diagnostics_format = '[eslint] #{m}\n#{c})'
         }),
         null_ls.builtins.completion.spell,
-        null_ls.builtins.formatting.prettierd,
         null_ls.builtins.formatting.rustfmt,
         null_ls.builtins.formatting.gofmt,
         null_ls.builtins.formatting.ocamlformat,
