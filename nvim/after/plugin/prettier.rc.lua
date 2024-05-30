@@ -4,6 +4,8 @@ if (not status) then return end
 prettier.setup {
   bin = 'prettierd',
   filetypes = {
+    'vue',
+    'html',
     'css',
     'javascript',
     'javascriptreact',
@@ -15,5 +17,3 @@ prettier.setup {
     'php'
   }
 }
-
-

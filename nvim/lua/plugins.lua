@@ -29,7 +29,7 @@ packer.startup(function(use)
       { 'rafamadriz/friendly-snippets' }, -- Optional
     }
   }
-  use 'kyazdani42/nvim-web-devicons'
+  use 'nvim-tree/nvim-web-devicons'
   use 'wbthomason/packer.nvim'
   use 'onsails/lspkind-nvim'
   use 'windwp/nvim-autopairs'

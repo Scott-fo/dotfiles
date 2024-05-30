@@ -36,3 +36,9 @@ vim.opt.formatoptions:append { 'r' }
 
 vim.g.no_ocaml_maps = 1
 vim.o.signcolumn = "yes:1"
+
+vim.filetype.add({
+  extension = {
+    templ = "templ",
+  }
+})
