@@ -1,52 +1,61 @@
-local lsp = require('lsp-zero')
+local lsp_zero = require('lsp-zero')
 
-lsp.preset('recommended')
+-- lsp_attach is where you enable features that only work
+-- if there is a language server active in the file
+local lsp_attach = function(client, bufnr)
+  local opts = {buffer = bufnr}
 
-lsp.ensure_installed({
-  'tsserver',
-  'gopls',
-  'rust_analyzer',
-  "rust_analyzer",
+  vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+  vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
+  vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
+  vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
+  vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
+  vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
+  vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
+  vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
+  vim.keymap.set({'n', 'x'}, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
+  vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+  vim.keymap.set('n', 'gn', function() vim.lsp.buf.rename() end, opts)
+
+  -- Diagnostics
+  vim.keymap.set('n', '[d', function() vim.diagnostic.goto_next() end, opts)
+  vim.keymap.set('n', ']d', function() vim.diagnostic.goto_prev() end, opts)
+  vim.keymap.set('n', 'ge', function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end, opts)
+  vim.keymap.set('n', 'gl', function() vim.diagnostic.open_float() end, opts)
+  vim.keymap.set('n', 'ca', function() vim.lsp.buf.code_action() end, opts)
+
+  vim.diagnostic.config({
+    virtual_text = true,
+  })
+end
+
+lsp_zero.extend_lspconfig({
+  sign_text = true,
+  lsp_attach = lsp_attach,
+  capabilities = require('cmp_nvim_lsp').default_capabilities(),
 })
 
-lsp.setup()
-
-local lspconfig = require('lspconfig')
-local mason_registry = require('mason-registry')
-local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path()
-
-lspconfig.tsserver.setup {
-  init_options = {
-    plugins = {
-      {
-        name = '@vue/typescript-plugin',
-        location = '/path/to/@vue/language-server',
-        languages = { 'vue' },
-      },
-    },
+require('mason').setup({})
+require('mason-lspconfig').setup({
+  ensure_installed = {'lua_ls', 'rust_analyzer'},
+  handlers = {
+    function(server_name)
+      require('lspconfig')[server_name].setup({})
+    end,
   },
-
-  lspconfig.volar.setup {
-    init_options = {
-      vue = {
-        hybridMode = false,
-      },
-    },
-  }
-}
-
-vim.diagnostic.config({
-  virtual_text = true,
 })
 
-local status, cmp = pcall(require, "cmp")
-if (not status) then return end
+local cmp = require('cmp')
 
 cmp.setup({
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'buffer' }
+  },
   snippet = {
     expand = function(args)
       require('luasnip').lsp_expand(args.body)
-    end
+    end,
   },
   mapping = cmp.mapping.preset.insert({
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
@@ -58,35 +67,7 @@ cmp.setup({
       select = true
     }),
   }),
-  sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'buffer' }
-  }),
 })
-
-lsp.nvim_workspace()
-
-lsp.on_attach(function(client, bufnr)
-  local opts = { buffer = bufnr, remap = false }
-
-  lsp.buffer_autoformat()
-
-  -- Definitions
-  vim.keymap.set('n', 'gd', function() vim.lsp.buf.definition() end, opts)
-  vim.keymap.set('n', 'gr', function() vim.lsp.buf.references() end, opts)
-  vim.keymap.set('n', 'K', function() vim.lsp.buf.hover() end, opts)
-  vim.keymap.set('i', '<C-k>', function() vim.lsp.buf.signature_help() end, opts)
-  vim.keymap.set('n', 'ca', function() vim.lsp.buf.code_action() end, opts)
-
-  -- Actions
-  vim.keymap.set('n', 'gn', function() vim.lsp.buf.rename() end, opts)
-
-  -- Diagnostics
-  vim.keymap.set('n', '[d', function() vim.diagnostic.goto_next() end, opts)
-  vim.keymap.set('n', ']d', function() vim.diagnostic.goto_prev() end, opts)
-  vim.keymap.set('n', 'ge', function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end, opts)
-  vim.keymap.set('n', 'gl', function() vim.diagnostic.open_float() end, opts)
-end)
 
 vim.cmd [[
   set completeopt=menuone,noinsert,noselect
