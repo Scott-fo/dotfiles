@@ -1,10 +1,9 @@
 local lsp_zero = require('lsp-zero')
+local blink      = require("blink.cmp")
+local cmp_caps   = blink.get_lsp_capabilities()
 
--- lsp_attach is where you enable features that only work
--- if there is a language server active in the file
 local lsp_attach = function(client, bufnr)
   local opts = { buffer = bufnr }
-  lsp_zero.buffer_autoformat()
 
   vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
   vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
@@ -33,44 +32,80 @@ end
 lsp_zero.extend_lspconfig({
   sign_text = true,
   lsp_attach = lsp_attach,
-  capabilities = require('cmp_nvim_lsp').default_capabilities(),
 })
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
   handlers = {
+    -- default handler
     function(server_name)
-      require('lspconfig')[server_name].setup({})
+      require("lspconfig")[server_name].setup({
+        capabilities = cmp_caps,
+      })
     end,
-    ['html'] = function()
-      require('lspconfig').html.setup({
-        filetypes = { "html", "eruby", "erb" },  -- Add ERB support here
+
+    -- html
+    ["html"] = function()
+      require("lspconfig").html.setup({
+        filetypes    = { "html", "eruby", "erb", "heex", "ex" },
+        capabilities = cmp_caps,
+      })
+    end,
+
+    -- tailwindcss
+    ["tailwindcss"] = function()
+      require("lspconfig").tailwindcss.setup({
+        filetypes    = {
+          "html", "eruby", "erb", "heex", "ex", "jsx", "tsx"
+        },
+        capabilities = cmp_caps,
+      })
+    end,
+
+    -- ts_ls (tsserver)
+    ["ts_ls"] = function()
+      require("lspconfig").ts_ls.setup({
+        init_options = {
+          plugins = {
+            {
+              name     = "@vue/typescript-plugin",
+              location = "/path/to/@vue/language-server",
+              languages = { "vue" },
+            },
+          },
+        },
+        capabilities = cmp_caps,
+      })
+    end,
+
+    -- volar
+    ["volar"] = function()
+      require("lspconfig").volar.setup({
+        init_options = {
+          vue = { hybridMode = false },
+        },
+        capabilities = cmp_caps,
       })
     end,
   },
 })
 
-local cmp = require('cmp')
+require("conform").setup({
+  formatters_by_ft = {
+    eruby = { "erb_format" },
+    ruby = { "standardrb" },
+    rust = { "rustfmt", lsp_format = "fallback" },
+    go = { "goimports", "gofmt" },
+    javascript = { "prettierd", "prettier", stop_after_first = true },
+    typescript = { "prettierd", "prettier", stop_after_first = true },
+    typescriptreact = { "prettierd", "prettier", stop_after_first = true },
+    javascriptreact = { "prettierd", "prettier", stop_after_first = true },
+  },
 
-cmp.setup({
-  sources = {
-    { name = 'nvim_lsp' },
+  format_on_save = {
+    timeout_ms = 500,
+    lsp_format = "fallback",
   },
-  snippet = {
-    expand = function(args)
-      vim.snippet.expand(args.body)
-    end,
-  },
-  mapping = cmp.mapping.preset.insert({
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.close(),
-    ['<CR>'] = cmp.mapping.confirm({
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true
-    }),
-  }),
 })
 
 vim.cmd [[

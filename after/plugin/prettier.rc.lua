@@ -4,7 +4,7 @@ if (not status) then return end
 prettier.setup {
   bin = 'prettierd',
   filetypes = {
-    '.svelte',
+    'svelte',
     'vue',
     'html',
     'css',
@@ -15,6 +15,9 @@ prettier.setup {
     'json',
     'scss',
     'less',
-    'php'
+    'php',
+    'erb',
+    'jsx',
+    'tsx',
   }
 }
