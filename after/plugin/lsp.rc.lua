@@ -96,10 +96,10 @@ require("conform").setup({
     ruby = { "standardrb" },
     rust = { "rustfmt", lsp_format = "fallback" },
     go = { "goimports", "gofmt" },
-    javascript = { "prettierd", "prettier", stop_after_first = true },
-    typescript = { "prettierd", "prettier", stop_after_first = true },
-    typescriptreact = { "prettierd", "prettier", stop_after_first = true },
-    javascriptreact = { "prettierd", "prettier", stop_after_first = true },
+    javascript = { "prettierd", "eslint_d" },
+    typescript = { "prettierd", "eslint_d" },
+    typescriptreact = { "prettierd", "eslint_d" },
+    javascriptreact = { "prettierd", "eslint_d" },
   },
 
   format_on_save = {
