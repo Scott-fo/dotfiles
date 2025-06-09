@@ -5,8 +5,8 @@ return {
     dependencies = { 'saghen/blink.cmp' },
   },
   { 'onsails/lspkind-nvim' },
-  { "williamboman/mason.nvim" },
-  { "williamboman/mason-lspconfig.nvim" },
+  { "mason-org/mason.nvim", version = "1.11.0" },
+ { "mason-org/mason-lspconfig.nvim", version = "1.32.0" },
   { 'stevearc/conform.nvim', opts = {} },
   {
     'saghen/blink.cmp',
