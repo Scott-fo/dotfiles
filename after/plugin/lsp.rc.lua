@@ -100,6 +100,7 @@ require("conform").setup({
     typescript = { "prettierd", "eslint_d" },
     typescriptreact = { "prettierd", "eslint_d" },
     javascriptreact = { "prettierd", "eslint_d" },
+    python = { "black" },
   },
 
   format_on_save = {
