@@ -35,13 +35,17 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
 
-    lazygit
+    # CLI tools
     zoxide
-    yazi
-    zellij
     ripgrep
     fd
+
+    # Dev setup
+    zellij
+    lazygit
+    yazi
     starship
+    helix
 
   ];
 
