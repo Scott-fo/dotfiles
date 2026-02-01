@@ -40,3 +40,6 @@ end-of-line-diagnostics = "hint"
 cursor-line = "hint"
 # Minimum severity to show a diagnostic on other lines:
 other-lines = "error"
+
+[editor.file-picker]
+hidden = false
