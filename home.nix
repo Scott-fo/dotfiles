@@ -41,6 +41,7 @@
     zellij
     ripgrep
     fd
+    starship
 
   ];
 
