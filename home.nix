@@ -42,11 +42,14 @@
 
     # Dev setup
     zellij
+    tmux
     lazygit
     yazi
     starship
     helix
 
+    # LSP
+    
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
