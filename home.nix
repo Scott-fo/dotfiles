@@ -46,10 +46,15 @@
     lazygit
     yazi
     starship
+    neovim
     helix
+    delta
+    bat
 
     # LSP
     
+    # Languages
+    deno
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

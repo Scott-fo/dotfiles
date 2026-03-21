@@ -1,0 +1,5 @@
+require('base')
+require('highlights')
+require('maps')
+require('config.lsp')
+require('config.lazy')

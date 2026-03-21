@@ -1,32 +1,33 @@
 [language-server]
-biome = { command = "biome", args = ["lsp-proxy"] }
+oxlint-language-server = { command = "oxlint", args = ["--lsp"] }
+oxfmt-language-server = { command = "oxfmt", args = ["--lsp"] }
 
 [[language]]
 name = "javascript"
-language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "oxlint-language-server", "oxfmt-language-server" ]
 auto-format = true
 
 [[language]]
 name = "typescript"
-language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "oxlint-language-server", "oxfmt-language-server" ]
 auto-format = true
 
 [[language]]
 name = "tsx"
 auto-format = true
-language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "oxlint-language-server", "oxfmt-language-server" ]
 
 [[language]]
 name = "jsx"
 auto-format = true
-language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
-
-[[language]]
-name = "json"
-language-servers = [ { name = "vscode-json-language-server", except-features = [ "format" ] }, "biome" ]
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "oxlint-language-server", "oxfmt-language-server" ]
 
 [language-server.gopls.config]
 "formatting.gofumpt" = true
 
 [language-server.rust-analyzer.config.check]
 command = "clippy"
+
+[[language]]                                                                                                                                                                            
+name = "svelte"                                                                                                                                                                         
+roots = ["package.json", "tsconfig.json", "svelte.config.js"]  

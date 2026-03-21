@@ -13,6 +13,24 @@ A-g = [
     ":set mouse false",
     ":set mouse true",
 ]
+A-r = [
+  ":write-all",
+  ":sh rm -f /tmp/vigil-chooser",
+  ":insert-output sh -c 'vigil --chooser-file /tmp/vigil-chooser </dev/tty >/dev/tty 2>&1'",
+  ":open %sh{cat /tmp/vigil-chooser}",
+  ":redraw",
+  ":reload-all",
+  ":set mouse false",
+  ":set mouse true",
+]
+A-b = [
+  ":write-all",
+  ":insert-output sh -c 'vigil blame \"%{buffer_name}:%{cursor_line}\" </dev/tty >/dev/tty 2>&1'",
+  ":redraw",
+  ":reload-all",
+  ":set mouse false",
+  ":set mouse true",
+]
 
 [keys.normal.space]
 e = [
