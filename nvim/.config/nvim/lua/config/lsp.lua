@@ -1,4 +1,16 @@
 local lsp_group = vim.api.nvim_create_augroup("dotfiles-lsp", { clear = true })
+local js_filetypes = {
+  "javascript",
+  "javascriptreact",
+  "typescript",
+  "typescriptreact",
+}
+local js_root_markers = {
+  "package.json",
+  "tsconfig.json",
+  "jsconfig.json",
+  ".git",
+}
 
 vim.diagnostic.config({
   virtual_text = true,
@@ -21,7 +33,13 @@ vim.diagnostic.config({
 vim.api.nvim_create_autocmd("LspAttach", {
   group = lsp_group,
   callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
     local opts = { buffer = args.buf }
+
+    if client and client.name == "ts_ls" then
+      client.server_capabilities.documentFormattingProvider = false
+      client.server_capabilities.documentRangeFormattingProvider = false
+    end
 
     vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
@@ -73,5 +91,44 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 
 vim.opt.completeopt = { "menuone", "noinsert", "noselect" }
 
--- Add per-server configs under `lsp/<server>.lua`, then enable them here.
--- Example: vim.lsp.enable("lua_ls")
+vim.lsp.config("ts_ls", {})
+
+vim.lsp.config("gopls", {
+  settings = {
+    gopls = {
+      gofumpt = true,
+    },
+  },
+})
+
+vim.lsp.config("rust_analyzer", {
+  settings = {
+    ["rust-analyzer"] = {
+      check = {
+        command = "clippy",
+      },
+    },
+  },
+})
+
+vim.lsp.config("oxlint", {
+  filetypes = js_filetypes,
+  root_markers = js_root_markers,
+  workspace_required = false,
+})
+
+vim.lsp.config("oxfmt", {
+  cmd = { "oxfmt", "--lsp" },
+  filetypes = js_filetypes,
+  root_markers = js_root_markers,
+})
+
+for _, server in ipairs({
+  "ts_ls",
+  "gopls",
+  "rust_analyzer",
+  "oxlint",
+  "oxfmt",
+}) do
+  vim.lsp.enable(server)
+end
