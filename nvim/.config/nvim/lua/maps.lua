@@ -136,6 +136,9 @@ keymap.set('n', '<C-w><down>', '<C-w>-')
 keymap.set('n', '<C-d>', '<C-d>zz')
 keymap.set('n', '<C-u>', '<C-u>zz')
 
+keymap.set('n', '<leader>c', 'gcc', { remap = true, desc = 'Toggle comment line' })
+keymap.set('x', '<leader>c', 'gc', { remap = true, desc = 'Toggle comment selection' })
+
 keymap.set({ 'n', 'i' }, '<M-r>', open_vigil, { desc = 'Open vigil chooser' })
 keymap.set({ 'n', 'i' }, '<M-b>', open_vigil_blame, { desc = 'Open vigil blame' })
 

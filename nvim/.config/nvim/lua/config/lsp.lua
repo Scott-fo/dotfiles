@@ -58,6 +58,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "<D-l>", snacks_picker("lsp_workspace_symbols"), picker_opts)
     vim.keymap.set("n", "<leader>ss", snacks_picker("lsp_symbols"), picker_opts)
     vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, opts)
+    vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, opts)
     vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, opts)
     vim.keymap.set({ "n", "x" }, "<F3>", function()
       vim.lsp.buf.format({ async = true })

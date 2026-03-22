@@ -5,8 +5,23 @@ return {
       picker = { enabled = true },
       explorer = { enabled = true },
       lazygit = { enabled = true },
+      terminal = { enabled = true },
     },
     keys = {
+      {
+        "<C-/>",
+        function()
+          require("snacks").terminal()
+        end,
+        desc = "Terminal",
+      },
+      {
+        "<C-_>",
+        function()
+          require("snacks").terminal()
+        end,
+        desc = "Terminal",
+      },
       {
         "<M-g>",
         function()
