@@ -1,5 +1,6 @@
 require('base')
 require('highlights')
 require('maps')
+require('config.statusline')
 require('config.lazy')
 require('config.lsp')

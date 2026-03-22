@@ -13,7 +13,6 @@ catppuccin.setup {
   integrations = {
     treesitter = true,
     gitsigns = true,
-    telescope = true,
   }
 }
 
