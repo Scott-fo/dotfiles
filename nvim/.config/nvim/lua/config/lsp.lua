@@ -12,6 +12,11 @@ local js_root_markers = {
   ".git",
 }
 local blink = require("blink.cmp")
+local function snacks_picker(method)
+  return function()
+    require("snacks").picker[method]()
+  end
+end
 
 vim.diagnostic.config({
   virtual_text = true,
@@ -36,8 +41,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     local opts = { buffer = args.buf }
+    local picker_opts = { buffer = args.buf, nowait = true }
 
-    if client and client.name == "ts_ls" then
+    if client and client.name == "vtsls" then
       client.server_capabilities.documentFormattingProvider = false
       client.server_capabilities.documentRangeFormattingProvider = false
     end
@@ -45,9 +51,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover, opts)
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+    vim.keymap.set("n", "gi", snacks_picker("lsp_implementations"), picker_opts)
     vim.keymap.set("n", "go", vim.lsp.buf.type_definition, opts)
-    vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+    vim.keymap.set("n", "gr", snacks_picker("lsp_references"), picker_opts)
+    vim.keymap.set("n", "<A-t>", snacks_picker("lsp_type_definitions"), picker_opts)
+    vim.keymap.set("n", "<D-l>", snacks_picker("lsp_workspace_symbols"), picker_opts)
+    vim.keymap.set("n", "<leader>ss", snacks_picker("lsp_symbols"), picker_opts)
     vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, opts)
     vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, opts)
     vim.keymap.set({ "n", "x" }, "<F3>", function()
@@ -96,7 +105,7 @@ vim.lsp.config("*", {
   capabilities = blink.get_lsp_capabilities(),
 })
 
-vim.lsp.config("ts_ls", {})
+vim.lsp.config("vtsls", {})
 
 vim.lsp.config("gopls", {
   settings = {
@@ -129,7 +138,7 @@ vim.lsp.config("oxfmt", {
 })
 
 for _, server in ipairs({
-  "ts_ls",
+  "vtsls",
   "gopls",
   "rust_analyzer",
   "oxlint",
