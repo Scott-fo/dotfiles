@@ -1,6 +1,24 @@
 local keymap = vim.keymap
 local api = vim.api
 
+local function parse_vigil_chooser(lines)
+  if not lines or #lines == 0 then
+    return nil
+  end
+
+  local path = vim.trim(lines[1] or "")
+  if path == "" then
+    return nil
+  end
+
+  local line = vim.trim(lines[2] or "")
+
+  return {
+    path = path,
+    line = tonumber(line),
+  }
+end
+
 local function open_snacks_terminal(cmd, opts)
   opts = opts or {}
   local snacks = require("snacks")
@@ -13,7 +31,7 @@ local function open_snacks_terminal(cmd, opts)
 
   local terminal = snacks.terminal(cmd, {
     interactive = true,
-    auto_close = true,
+    auto_close = false,
     cwd = opts.cwd,
     env = opts.env,
     win = vim.tbl_deep_extend("force", {
@@ -34,11 +52,16 @@ local function open_snacks_terminal(cmd, opts)
 
   terminal:on("TermClose", function()
     vim.schedule(function()
+      terminal:close()
+      vim.cmd("checktime")
       if opts.hide_ui then
         vim.o.showtabline = previous_showtabline
       end
       if opts.on_exit then
-        opts.on_exit()
+        local ok, err = pcall(opts.on_exit)
+        if not ok then
+          vim.notify(err, vim.log.levels.ERROR, { title = "terminal on_exit" })
+        end
       end
     end)
   end, { buf = true })
@@ -69,12 +92,17 @@ local function open_vigil()
 
       local lines = vim.fn.readfile(chooser_file)
       vim.fn.delete(chooser_file)
-      local chosen = vim.trim(table.concat(lines, "\n"))
-      if chosen == "" then
+      local choice = parse_vigil_chooser(lines)
+      if not choice then
         return
       end
 
-      vim.cmd("edit " .. vim.fn.fnameescape(vim.fn.fnamemodify(chosen, ":p")))
+      local path = vim.fn.fnameescape(vim.fn.fnamemodify(choice.path, ":p"))
+      if choice.line and choice.line > 0 then
+        vim.cmd(("edit +%d %s"):format(choice.line, path))
+      else
+        vim.cmd("edit " .. path)
+      end
     end,
   })
 end
