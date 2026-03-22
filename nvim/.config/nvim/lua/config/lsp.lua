@@ -11,6 +11,7 @@ local js_root_markers = {
   "jsconfig.json",
   ".git",
 }
+local blink = require("blink.cmp")
 
 vim.diagnostic.config({
   virtual_text = true,
@@ -90,6 +91,10 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 })
 
 vim.opt.completeopt = { "menuone", "noinsert", "noselect" }
+
+vim.lsp.config("*", {
+  capabilities = blink.get_lsp_capabilities(),
+})
 
 vim.lsp.config("ts_ls", {})
 
