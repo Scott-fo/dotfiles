@@ -5,6 +5,7 @@ return {
       picker = { enabled = true },
       explorer = { enabled = true },
       lazygit = { enabled = true },
+      notifier = { enabled = true },
       terminal = { enabled = true },
     },
     keys = {
