@@ -108,6 +108,8 @@ vim.lsp.config("*", {
 
 vim.lsp.config("vtsls", {})
 
+vim.lsp.config("zls", {})
+
 vim.lsp.config("gopls", {
   settings = {
     gopls = {
@@ -140,6 +142,7 @@ vim.lsp.config("oxfmt", {
 
 for _, server in ipairs({
   "vtsls",
+  "zls",
   "gopls",
   "rust_analyzer",
   "oxlint",
